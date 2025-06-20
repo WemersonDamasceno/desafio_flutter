@@ -21,18 +21,21 @@ class _XmasCounterPageState extends State<XmasCounterPage> {
   @override
   void initState() {
     super.initState();
-    _loadAndCount();
+    _loadDefaultAsset(); // carrega o input.txt por padrão
   }
 
-  Future<void> _loadAndCount() async {
+  Future<void> _loadDefaultAsset() async {
     final input = await rootBundle.loadString('assets/input.txt');
-    //*** Quebrar o arquivo em linhas ***//
     final lines = input
         .split('\n')
         .map((e) => e.trim())
         .where((e) => e.isNotEmpty)
         .toList();
 
+    _processLines(lines);
+  }
+
+  void _processLines(List<String> lines) {
     final searcher = XmasSearcher(lines);
     final count = searcher.countOccurrences();
 
@@ -42,6 +45,7 @@ class _XmasCounterPageState extends State<XmasCounterPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Center(
@@ -70,6 +74,7 @@ class _XmasCounterPageState extends State<XmasCounterPage> {
                     right: 0,
                     child: CounterXmasWordWidget(
                       total: total ?? 0,
+                      processLines: (lines) => _processLines(lines),
                     ),
                   ),
                 ],

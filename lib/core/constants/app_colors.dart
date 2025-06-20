@@ -5,4 +5,5 @@ class AppColors {
   static const Color infoColor = Colors.lightBlue;
   static const Color white = Colors.white;
   static const Color backgroundColor = Color(0xFFfabc6b);
+  static const Color red = Color(0xFFd33621);
 }
