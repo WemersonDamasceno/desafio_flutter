@@ -1,79 +1,49 @@
+import 'package:desafio_flutter/core/utils/position_interator.dart';
+
 class XmasSearcher {
   final List<String> _lines;
   final String _targetWord = "XMAS";
 
-  // Direções possíveis para formar a palavra (horizontal, vertical e diagonais)
   final List<List<int>> _directions = [
-    [0, 1], // direita →
-    [1, 0], // baixo ↓
-    [0, -1], // esquerda ←
-    [-1, 0], // cima ↑
-    [1, 1], // diagonal ↘
-    [1, -1], // diagonal ↙
-    [-1, 1], // diagonal ↗
-    [-1, -1], // diagonal ↖
+    [0, 1],
+    [1, 0],
+    [0, -1],
+    [-1, 0],
+    [1, 1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
   ];
 
   XmasSearcher(this._lines);
 
   int countOccurrences() {
-    final matrix = _convertLinesToMatrix();
-    final rowCount = matrix.length;
-    final colCount = matrix[0].length;
-    int totalCount = 0;
+    int count = 0;
+    final rows = _lines.length;
+    final cols = _lines.isNotEmpty ? _lines[0].length : 0;
 
-    // Passa por todas as posições da matriz (eixo Y, eixo X)
-    for (int row = 0; row < rowCount; row++) {
-      for (int col = 0; col < colCount; col++) {
-        // Testa todas as direções possíveis a partir dessa posição
-        for (final direction in _directions) {
-          final rowStep = direction[0];
-          final colStep = direction[1];
-
-          // Se encontrar a palavra a partir daqui, incrementa o contador
-          if (_isWordAt(matrix, row, col, rowStep, colStep)) {
-            totalCount++;
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        for (var dir in _directions) {
+          if (_checkWordAt(r, c, dir[0], dir[1])) {
+            count++;
           }
         }
       }
     }
 
-    return totalCount;
+    return count;
   }
 
-  /// Converte as linhas de texto para uma matriz de letras (List<List<String>>)
-  List<List<String>> _convertLinesToMatrix() {
-    return _lines.map((line) => line.split('')).toList();
-  }
+  bool _checkWordAt(int row, int col, int rowStep, int colStep) {
+    final iterator = PositionIterator(_lines, row, col, rowStep, colStep);
 
-  /// Verifica se a palavra "XMAS" está presente a partir de uma posição (row, col)
-  /// seguindo uma direção definida por rowStep e colStep
-  bool _isWordAt(
-    List<List<String>> matrix,
-    int startRow,
-    int startCol,
-    int rowStep,
-    int colStep,
-  ) {
     for (int i = 0; i < _targetWord.length; i++) {
-      final currentRow = startRow + rowStep * i;
-      final currentCol = startCol + colStep * i;
-
-      // Se sair da matriz, já retorna false
-      if (currentRow < 0 ||
-          currentRow >= matrix.length ||
-          currentCol < 0 ||
-          currentCol >= matrix[0].length) {
-        return false;
-      }
-
-      // Se a letra atual da matriz for diferente da letra da palavra
-      if (matrix[currentRow][currentCol] != _targetWord[i]) {
+      final char = iterator.next();
+      if (char == null || char != _targetWord[i]) {
         return false;
       }
     }
-
-    // Se passou por todas as letras e todas bateram, a palavra foi encontrada
     return true;
   }
 }
