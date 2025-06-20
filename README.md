@@ -6,8 +6,7 @@ Este é um app Flutter que encontra todas as ocorrências da palavra **"XMAS"** 
 
 ## 📸 Preview do App
 
-https://github.com/user-attachments/assets/9aa85a3d-354a-41d9-a59b-33761f7b991b
-
+https://github.com/user-attachments/assets/09866c65-c457-4bb8-86fe-831b76389972
 
 ---
 
