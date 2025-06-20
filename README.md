@@ -12,7 +12,7 @@ https://github.com/user-attachments/assets/09866c65-c457-4bb8-86fe-831b76389972
 
 ## 📥 Download do App (APK)
 
-👉 Baixe o APK compilado para Android aqui: [download](https://drive.google.com/file/d/1hsjPDNbWiExmxbh21vbeKQOl2s7hcS7b/view?usp=sharing)
+👉 Baixe o APK compilado para Android aqui: [download](https://drive.google.com/file/d/1vTWd_d96kHHSH-nG3pjVtBIx9mAAJZ-c/view?usp=sharing)
 
 
 ---
